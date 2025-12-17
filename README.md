@@ -19,11 +19,13 @@ The goal of this project is to manage **LVM logical volumes (LVs)** efficiently 
 
 ## **Requirements**
 
-Linux (I used lubutnu )
+Linux (I used lubuntu )
 
 LVM2 (sudo apt install lvm2)
 
 Root privileges or sudo
+
+GCC compiler (sudo apt install build-essential)
 
 ---
 
@@ -75,35 +77,37 @@ sudo mount /dev/ilyes_vg/data1 /mnt/data1
 
 Entries are added to /etc/fstab to make mounts persistent.
 
-5. Intelligent Scripts
+5. C programms :
 
-Three main scripts are used:
+Three main C programs are used:
 
-1. lvm_fill.sh
+1. lvm_fill
 
 Simulates filling an LV with data for testing:
 ```bash
-sudo /usr/local/bin/lvm_fill.sh /mnt/data1 12G
+sudo /usr/local/bin/lvm_fill /mnt/data1 10G
 ```
-2. lvm_manager.sh
+2. lvm_manager
 
-Performs management actions on an LV:
 
-Cleanup unnecessary files
+Performs management actions on a specific LV:
 
-Extend LV from VG free space
+Cleans temporary files
 
-Move files to other LVs with space
+Extends LV using VG free space
 
-Alert admin if nothing works
+Moves files to other LVs if needed
 
-3. lvm_monitor.sh
+Alerts admin if no solution is possible
+
+
+3. lvm_monitor
 
 Monitors LV usage periodically:
 
 Checks if LV usage ≥ 80%
 
-Calls lvm_manager.sh for intelligent action
+Calls lvm_manager.c for action
 
 Logs actions to /var/log/lvm_monitor.log
 
@@ -111,7 +115,7 @@ Logs actions to /var/log/lvm_monitor.log
 
 Monitoring is automated with cron, running every 2 minutes:
 ```bash
-*/2 * * * * /usr/local/bin/lvm_monitor.sh 80 >> /var/log/lvm_monitor.log 2>&1
+*/2 * * * * /usr/local/bin/lvm_monitor 80 >> /var/log/lvm_monitor.log 2>&1
 ```
 Intelligent Decision Flow
 
@@ -123,7 +127,7 @@ Cleanup unnecessary files
 
 Extend LV using free space from the VG
 
-Move files to other LVs with available space
+Move files to other LVs from same VG with available space
 
 Alert admin if no action can free space
 
@@ -131,12 +135,12 @@ Testing the System
 
 Fill an LV:
 ```bash
-sudo /usr/local/bin/lvm_fill.sh /mnt/data1 12G
+sudo /usr/local/bin/lvm_fill /mnt/data1 14G
 ```
 
 Wait for cron or manually run monitor:
 ```bash
-sudo /usr/local/bin/lvm_monitor.sh 80
+sudo /usr/local/bin/lvm_monitor 80
 ```
 
 Check /var/log/lvm_monitor.log for actions:
