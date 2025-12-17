@@ -77,6 +77,14 @@ sudo mount /dev/ilyes_vg/data1 /mnt/data1
 
 Entries are added to /etc/fstab to make mounts persistent.
 
+```
+sudo blkid
+```
+in /etc/fstab we add entries with uuid (we add uuid to ensure that the system always mounts the correct partition even if device names change ex: sdb → sdc)
+```
+UUID=e4f5b6d7-1234-5678-9abc-def012345678 /mnt/data1 ext4 defaults 0 2
+```
+
 ### 5. C programms :
 
 Three main C programs are used:
