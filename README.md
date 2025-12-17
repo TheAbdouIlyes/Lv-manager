@@ -12,7 +12,7 @@ The goal of this project is to manage **LVM logical volumes (LVs)** efficiently 
 1. Monitoring LV usage.
 2. Automatically cleaning unnecessary files.
 3. Extending LVs from available VG space.
-4. Moving files to other LVs if needed.
+4. Moving files to other LVs from the same VG if needed.
 5. Alerting the administrator when manual intervention is required.
 
 ---
