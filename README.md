@@ -43,7 +43,7 @@ These disks are initialized as **Physical Volumes**:
 ```bash
 sudo pvcreate /dev/sdb /dev/sdc
 ```
-2. Volume Group (VG)
+### 2. Volume Group (VG)
 
 The PVs are combined into a Volume Group named ilyes_vg:
 ```bash
@@ -52,7 +52,7 @@ sudo vgcreate ilyes_vg /dev/sdb /dev/sdc
 
 VG total size = 40GB.
 
-3. Logical Volumes (LVs)
+### 3. Logical Volumes (LVs)
 
 Three LVs are created:
 
@@ -65,7 +65,7 @@ sudo lvcreate -L 15G -n data1 ilyes_vg
 sudo lvcreate -L 15G -n data2 ilyes_vg
 sudo lvcreate -L 5G -n data3 ilyes_vg
 ```
-4. Filesystem & Mount
+### 4. Filesystem & Mount
 
 Each LV is formatted with ext4 and mounted:
 ```bash
@@ -77,7 +77,7 @@ sudo mount /dev/ilyes_vg/data1 /mnt/data1
 
 Entries are added to /etc/fstab to make mounts persistent.
 
-5. C programms :
+### 5. C programms :
 
 Three main C programs are used:
 
@@ -111,13 +111,13 @@ Calls lvm_manager.c for action
 
 Logs actions to /var/log/lvm_monitor.log
 
-6. Cron Job
+### 6. Cron Job
 
 Monitoring is automated with cron, running every 2 minutes:
 ```bash
 */2 * * * * /usr/local/bin/lvm_monitor 80 >> /var/log/lvm_monitor.log 2>&1
 ```
-Intelligent Decision Flow
+### Intelligent Decision Flow
 
 The system follows this priority order:
 
@@ -131,7 +131,7 @@ Move files to other LVs from same VG with available space
 
 Alert admin if no action can free space
 
-Testing the System
+### Testing the System
 
 Fill an LV:
 ```bash
