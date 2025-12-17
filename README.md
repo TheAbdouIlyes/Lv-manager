@@ -139,7 +139,32 @@ Move files to other LVs from same VG with available space
 
 Alert admin if no action can free space
 
+### last step before testing
+
+1- Compile each C program manually
+
+```
+gcc -Wall -Wextra -O2 -o lvm_fill lvm_fill.c
+gcc -Wall -Wextra -O2 -o lvm_manager lvm_manager.c
+gcc -Wall -Wextra -O2 -o lvm_monitor lvm_monitor.c
+```
+
+2- Install the programs (move them to /usr/local/bin):
+
+```
+sudo cp lvm_fill /usr/local/bin/
+sudo cp lvm_manager /usr/local/bin/
+sudo cp lvm_monitor /usr/local/bin/
+```
+3- Create the log file:
+```
+sudo touch /var/log/lvm_monitor.log
+sudo chmod 666 /var/log/lvm_monitor.log
+
+```
 ### Testing the System
+
+
 
 Fill an LV:
 ```bash
