@@ -20,8 +20,11 @@ The goal of this project is to manage **LVM logical volumes (LVs)** efficiently 
 ## **Requirements**
 
 Linux (I used lubuntu )
+
 LVM2 (sudo apt install lvm2)
+
 Root privileges or sudo
+
 GCC compiler (sudo apt install build-essential)
 
 ---
